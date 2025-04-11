@@ -48,3 +48,20 @@ pnpm start
 ## Contributing
 
 Contributions are welcome! Please submit a pull request or create an issue to get started.
+
+4. Streaming mock test MorAI
+
+```bash
+docker build -t mockai-server .
+```
+
+after build and run
+
+```bash
+docker run -p 5002:5002 --name relaxed_bouman mockai-server
+docker network connect morai_default relaxed_bouman
+```
+or if possible just run it on the same network as the main project from the start.
+```bash
+docker run --rm --network morai_default --name relaxed_bouman mockai-server
+```
