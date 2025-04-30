@@ -23,7 +23,7 @@ const { register, requestCounter, requestLatency, payloadSize } = require("./uti
 const setupApp = async () => {
   await loadRandomContents();
 
-  const req_limit = process.env.REQUEST_SIZE_LIMIT || "10kb";
+  const req_limit = process.env.REQUEST_SIZE_LIMIT || "500kb";
   app.use(express.json({"limit": req_limit}));
   // Request Logger Configuration
   app.use(requestId);
@@ -44,6 +44,10 @@ const setupApp = async () => {
       },
       stream: process.stderr
   }));
+
+  // const req_limit = process.env.REQUEST_SIZE_LIMIT || "10mb"; // Adjust the limit as needed
+  app.use(express.json({ limit: req_limit }));
+  app.use(express.urlencoded({ limit: req_limit, extended: true }));
 
   app.use(chatRoutes);
   app.use(textRoutes);
